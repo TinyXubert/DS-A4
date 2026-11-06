@@ -23,27 +23,31 @@ for c in nb.cells:
     if c.get('id')=='abstract': c.source=abstract
 # Keep the author's current verification/reflection entry in every report export.
 log_path=base/'AI_USE_LOG.md'
-log_text=log_path.read_text(encoding='utf-8')
-headings=list(re.finditer(r'(?m)^(#{1,6})[ \t]+(.+?)[ \t]*$',log_text))
-sections=[]
-for i,heading in enumerate(headings):
-    title=heading.group(2).strip().lower()
-    if not (title.startswith('student independent verification') or title.startswith('reflection')):
-        continue
-    end=len(log_text)
-    for later in headings[i+1:]:
-        if len(later.group(1))<=len(heading.group(1)):
-            end=later.start(); break
-    sections.append(log_text[heading.start():end].strip())
-assert sections, 'No student verification/reflection section found in AI_USE_LOG.md.'
 cell_id='student-verification-reflection'
-nb.cells=[c for c in nb.cells if c.get('id')!=cell_id]
-nb.cells.append(nbformat.v4.new_markdown_cell(
-    '<div style="break-before: page"></div>\n\n'
-    + '\n\n'.join(sections) + '\n',
-    id=cell_id,
-    metadata={'source_file':'AI_USE_LOG.md','source_sha256':hashlib.sha256(log_path.read_bytes()).hexdigest(),
-              'content_policy':'Verbatim author-provided verification/reflection; no execution or completion claim added.'}))
+if log_path.exists():
+    log_text=log_path.read_text(encoding='utf-8')
+    headings=list(re.finditer(r'(?m)^(#{1,6})[ \t]+(.+?)[ \t]*$',log_text))
+    sections=[]
+    for i,heading in enumerate(headings):
+        title=heading.group(2).strip().lower()
+        if not (title.startswith('student independent verification') or title.startswith('reflection')):
+            continue
+        end=len(log_text)
+        for later in headings[i+1:]:
+            if len(later.group(1))<=len(heading.group(1)):
+                end=later.start(); break
+        sections.append(log_text[heading.start():end].strip())
+    assert sections, 'No student verification/reflection section found in local AI log.'
+    nb.cells=[c for c in nb.cells if c.get('id')!=cell_id]
+    nb.cells.append(nbformat.v4.new_markdown_cell(
+        '<div style="break-before: page"></div>\n\n'
+        + '\n\n'.join(sections) + '\n',
+        id=cell_id,
+        metadata={'source_file':'AI_USE_LOG.md','source_sha256':hashlib.sha256(log_path.read_bytes()).hexdigest(),
+                  'content_policy':'Verbatim author-provided verification/reflection; no execution or completion claim added.'}))
+else:
+    saved=[c for c in nb.cells if c.get('id')==cell_id]
+    assert len(saved)==1 and saved[0].cell_type=='markdown' and saved[0].source.strip(), 'Saved author verification/reflection is missing.'
 nbformat.write(nb,path)
 (base/'ABSTRACT.md').write_text(abstract)
 (base/'SUBMISSION_SUMMARY.md').write_text(abstract+'\nAuthor: xuhongbo · Student ID: 202618018629048\n\nAssignment: DS-A'+str(a)+'\n\nUse the summary above in the platform record alongside the Google Drive link and a fixed GitHub commit/tag URL after publishing. No remote publication is performed by this exporter.\n')
