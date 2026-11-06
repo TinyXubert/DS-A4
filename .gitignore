@@ -1,0 +1,12 @@
+.venv/
+.runtime/
+__pycache__/
+.ipynb_checkpoints/
+# Redundant local exports and submission reminders; source files stay local.
+/A4.html
+/A4_REPORT.md
+/report_assets/
+/ABSTRACT.md
+/SUBMISSION_SUMMARY.md
+/SUBMISSION_FILES.md
+/EXECUTION_CHECK.md

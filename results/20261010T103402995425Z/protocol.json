@@ -1,0 +1,24 @@
+{
+  "assignment": 4,
+  "title": "Model Comparison and Calibration Lab",
+  "author": "xuhongbo",
+  "student_id": "202618018629048",
+  "seed": 20261014,
+  "created_utc": "2026-10-10T10:29:22.491816+00:00",
+  "models": [
+    "Logistic",
+    "Random forest",
+    "Histogram boosting"
+  ],
+  "test_selection": false,
+  "status": "protocol fixed before experiment execution",
+  "split": "60% training, 15% calibration, 10% policy decision, 15% test; stratified",
+  "folds": 5,
+  "candidates_per_model": 3,
+  "selection_metric": "average precision",
+  "bootstrap_repetitions": 1000,
+  "ece_bins": 5,
+  "false_negative_cost": 5,
+  "false_positive_cost": 1,
+  "review_capacity": 0.3
+}

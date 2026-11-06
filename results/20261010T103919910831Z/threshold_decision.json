@@ -1,0 +1,30 @@
+{
+  "model": "Logistic",
+  "threshold": 0.9997107228737928,
+  "FN_cost": 5,
+  "FP_cost": 1,
+  "capacity": 0.3,
+  "selection_partition": "decision",
+  "decision": {
+    "threshold": 0.9997107228737928,
+    "FN": 4,
+    "FP": 0,
+    "reviewed": 17,
+    "n": 58,
+    "cost": 20,
+    "feasible": true
+  },
+  "test_fixed_threshold": {
+    "FN": 11,
+    "FP": 0,
+    "reviewed": 21,
+    "n": 86
+  },
+  "test_threshold_plus_cap": {
+    "FN": 11,
+    "FP": 0,
+    "reviewed": 21,
+    "n": 86
+  },
+  "policy": "threshold then top floor(0.3*n) scores; ties stable row order; unreviewed positives count as false negatives"
+}
