@@ -1,0 +1,21 @@
+{
+  "selected": "Logistic",
+  "candidates": [
+    {
+      "model": "Logistic",
+      "candidate": 1,
+      "AP": 0.9904708940484804
+    },
+    {
+      "model": "HistBoost",
+      "candidate": 0,
+      "AP": 0.9857319297127993
+    },
+    {
+      "model": "RandomForest",
+      "candidate": 2,
+      "AP": 0.9831388554065807
+    }
+  ],
+  "budget": "3 candidates x 5 identical folds per family; AP objective; wall time recorded"
+}

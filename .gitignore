@@ -11,3 +11,6 @@ __pycache__/
 /SUBMISSION_FILES.md
 /EXECUTION_CHECK.md
 /AI_USE_LOG.md
+/export_report.py
+/requirements-export.txt
+/protocol.json

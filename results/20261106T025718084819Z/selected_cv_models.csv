@@ -1,0 +1,4 @@
+model,candidate,AP
+Logistic,1,0.9904708940484804
+HistBoost,0,0.9857319297127993
+RandomForest,2,0.9831388554065807

@@ -7,7 +7,7 @@ for var,sub in [('TMPDIR','tmp'),('JUPYTER_RUNTIME_DIR','jupyter'),('JUPYTER_CON
     p=base/'.runtime'/sub; p.mkdir(parents=True,exist_ok=True); os.environ.setdefault(var,str(p))
 import nbformat
 from nbclient import NotebookClient
-number=json.loads((base/'protocol.json').read_text())['assignment']
+number=4
 path=base/f'A{number}.ipynb'; nb=nbformat.read(path,as_version=4)
 for c in nb.cells:
     if c.cell_type=='code': c.outputs=[]; c.execution_count=None

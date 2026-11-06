@@ -10,8 +10,9 @@ from threadpoolctl import threadpool_limits
 threadpool_limits(limits=1)
 plt.rcParams.update({'figure.dpi':110, 'font.size':10, 'axes.spines.top':False, 'axes.spines.right':False})
 BASE = Path.cwd()
-assert (BASE / 'protocol.json').exists(), 'Run with this assignment as working directory.'
-protocol = json.loads((BASE / 'protocol.json').read_text())
+PROTOCOL_PATH = BASE / 'results/20261010T104325122644Z/protocol.json'
+assert PROTOCOL_PATH.exists(), 'Run with this assignment as working directory.'
+protocol = json.loads(PROTOCOL_PATH.read_text())
 def notebook_code_hash():
     saved=json.loads((BASE/f"A{protocol['assignment']}.ipynb").read_text())
     code=''.join(''.join(c['source']) for c in saved['cells'] if c['cell_type']=='code')
@@ -32,8 +33,8 @@ def figure(name):
 manifest = json.loads((BASE/'data/raw/manifest.json').read_text())
 for filename, expected in manifest['files'].items():
     assert sha(BASE/'data/raw'/filename)==expected, filename
-save_json('run_metadata.json', {'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(), 'python':sys.version,'executable':sys.executable,'platform':platform.platform(),'protocol_sha256':sha(BASE/'protocol.json'),'manifest_sha256':sha(BASE/'data/raw/manifest.json'),'seed':SEED,'analysis_source_sha256':sha(BASE/'analysis.py'),'notebook_code_sha256':notebook_code_hash()})
-(RUN/'protocol.json').write_bytes((BASE/'protocol.json').read_bytes())
+save_json('run_metadata.json', {'started_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(), 'python':sys.version,'executable':sys.executable,'platform':platform.platform(),'protocol_sha256':sha(PROTOCOL_PATH),'manifest_sha256':sha(BASE/'data/raw/manifest.json'),'seed':SEED,'analysis_source_sha256':sha(BASE/'analysis.py'),'notebook_code_sha256':notebook_code_hash()})
+(RUN/'protocol.json').write_bytes(PROTOCOL_PATH.read_bytes())
 (RUN/'requirements-lock.txt').write_text(subprocess.check_output([sys.executable,'-m','pip','freeze'],text=True))
 print('Verified raw hashes:', len(manifest['files']))
 print('Run:', RUN.name)
@@ -213,6 +214,6 @@ display(Markdown(notes))
 assert 150 <= len(summary.split()) <= 300, len(summary.split())
 (RUN/'ABSTRACT.md').write_text('# Abstract\n\n'+summary+'\n')
 save_json('summary.json', facts)
-save_json('completed.json', {'completed_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'protocol_sha256':sha(BASE/'protocol.json'),'manifest_sha256':sha(BASE/'data/raw/manifest.json'),'summary_words':len(summary.split()),'analysis_source_sha256':sha(BASE/'analysis.py'),'notebook_code_sha256':notebook_code_hash(),'personal_verification':'Not asserted by automated execution'})
+save_json('completed.json', {'completed_utc':datetime.datetime.now(datetime.timezone.utc).isoformat(),'protocol_sha256':sha(PROTOCOL_PATH),'manifest_sha256':sha(BASE/'data/raw/manifest.json'),'summary_words':len(summary.split()),'analysis_source_sha256':sha(BASE/'analysis.py'),'notebook_code_sha256':notebook_code_hash(),'personal_verification':'Not asserted by automated execution'})
 display(Markdown('## Results summary\n\n'+summary))
 print('RESULT_DIR:', RUN.relative_to(BASE).as_posix())

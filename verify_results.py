@@ -2,7 +2,7 @@ from pathlib import Path
 import subprocess,json,re,hashlib
 import nbformat,numpy as np,pandas as pd
 base=Path(__file__).resolve().parent
-for a in [json.loads((base/'protocol.json').read_text())['assignment']]:
+for a in [4]:
  p=base; nb=nbformat.read(p/f'A{a}.ipynb',as_version=4); runs=sorted((p/'results').glob('*/completed.json')); run=runs[-1].parent
  counts=[c.execution_count for c in nb.cells if c.cell_type=='code']; assert counts==list(range(1,len(counts)+1))
  assert not [o for c in nb.cells if c.cell_type=='code' for o in c.outputs if o.output_type=='error']

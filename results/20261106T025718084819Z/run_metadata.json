@@ -1,0 +1,11 @@
+{
+  "started_utc": "2026-11-06T02:57:18.085678+00:00",
+  "python": "3.10.20 (main, Mar 11 2026, 17:46:40) [GCC 14.3.0]",
+  "executable": "/data2/xuhongbo/DS_HW/DS-A2/.venv/bin/python",
+  "platform": "Linux-4.18.0-305.3.1.el8.x86_64-x86_64-with-glibc2.28",
+  "protocol_sha256": "62df15d01bc0c67ed143ac8a918d33731c0e7a37937321d51485f72ac3df8a14",
+  "manifest_sha256": "146dd2802444eae6b5673844d522bdb186d3facb395d8a2d068fa99adbbfe24f",
+  "seed": 20261014,
+  "analysis_source_sha256": "12948b280a1837a4ed2c688c5eb98eb00eb8446fca9a945f01098974386a39fd",
+  "notebook_code_sha256": "c30efb8d0f9bddd0f50b60516092264e4bfb7d1a135b753d0b0ff1b9e635400f"
+}
